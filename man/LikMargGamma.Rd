@@ -12,7 +12,7 @@ LikMargGamma(y, D, nf, ncl, dist)
 for the exponential baseline hazard function,
 \deqn{y = (ln(a), ln(b), \beta , ln(\sigma ^2))}
 for the Weibull baseline hazard function and
-\deqn{y = (ln(10^3a), ln(10b), \beta , ln(\sigma ^2))}
+\deqn{y = (ln(10^4a), ln(10b), \beta , ln(\sigma ^2))}
 for the Gompertz baseline hazard function, where a and b are the slope and the shape parameters,
 \eqn{\beta } are the Cox-regression parameters, and \eqn{\sigma ^2} is the variance of frailty.}
 
