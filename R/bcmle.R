@@ -24,9 +24,9 @@
 #' \enumerate{
 #' \item baseline hazard function ('Exponential', 'Weibull' or 'Gompertz') - 'dist';
 #' \item frailty distribution ('gamma' or 'inverse gaussian') - 'frailty';
-#' \item ML parameter estimates 'parEst';
+#' \item ML parameter estimates 'parEst' (for Gompertz hazard function (a/b) instead a);
 #' \item standard errors for ML parameter estimates - 'stErr';
-#' \item bias corrected parameter estimates  - 'parCor';
+#' \item bias corrected parameter estimates  - 'parCor' (for Gompertz hazard function (a/b) instead a);
 #' \item latex table for ML estimates, standard errors and bias corrected ML estimates - 'xTab';
 #' \item times to failure in increasing order - 't';
 #' \item empirical survivals - 'sEmp';
@@ -220,7 +220,8 @@ bcmle=function(formula,data,cluster,dist,frailty,nMonte)
    parcor=piar-Bia$Bias
 
    if (dist=='Exponential' & nf==0) namVar=c("$\\ln(a)$","$\\ln(\\sigma ^2)$")
-   if (dist!='Exponential' & nf==0) namVar=c("$\\ln(a)$","$log(\\sigma ^2)$","$b$")
+   if (dist=='Weibull' & nf==0) namVar=c("$\\ln(a)$","$\\ln(\\sigma ^2)$","$b$")
+   if (dist=='Gompertz' & nf==0) namVar=c("$\\ln(a/b)$","$\\ln(\\sigma ^2)$","$b$")
    if (dist=='Exponential' & nf>0){
      namVar="$\\ln(a)$"
      for (it in 1:nf){
@@ -253,14 +254,35 @@ bcmle=function(formula,data,cluster,dist,frailty,nMonte)
     G2cor=exp(parcor[nf+2])
     bcor=parcor[nf+3]
     }
-  sEst=(1+G2*ae*t)^(-1/G2)
-  sCor=(1+G2cor*acor*t)^(-1/G2cor)
+  if (dist=='Exponential') {
+    if (frailty=="gamma") {
+    sEst=(1+G2*ae*t)^(-1/G2)
+    sCor=(1+G2cor*acor*t)^(-1/G2cor)
+    }
+    if (frailty=="inverse gaussian") {
+    sEst=exp((1-sqrt(1+2*G2*ae*t))/G2)
+    sCor=exp((1-sqrt(1+2*G2cor*acor*t))/G2cor)
+    }
+  }
   if (dist=='Weibull') {
+    if (frailty=="gamma") {
     sEst=(1+G2*ae*t^be)^(-1/G2)
     sCor=(1+G2cor*acor*t^bcor)^(-1/G2cor)
-  } else if (dist=='Gompertz'){
+    }
+    if (frailty=="inverse gaussian") {
+    sEst=exp((1-sqrt(1+2*G2*ae*t^be))/G2)
+    sCor=exp((1-sqrt(1+2*G2cor*acor*t^bcor))/G2cor)
+    }
+  } 
+  if (dist=='Gompertz'){
+    if (frailty=="gamma") {
     sEst=(1+G2*ae*(exp(be*t)-1))^(-1/G2)
     sCor=(1+G2cor*acor*(exp(bcor*t)-1))^(-1/G2cor)
+    }
+    if (frailty=="inverse gaussian") {
+    sEst=exp((1-sqrt(1+2*G2*ae*(exp(be*t)-1)))/G2)
+    sCor=exp((1-sqrt(1+2*G2cor*acor*(exp(bcor*t)-1)))/G2cor)
+    }
   }
   piar=c(piar,pc)
   se=c(se,sepc)
