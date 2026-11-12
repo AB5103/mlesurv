@@ -16,7 +16,7 @@ BiasCorrectionIG(D0, nf, ncl, dist, para, nMonte)
 for the exponential baseline hazard function,
 \deqn{y = (ln(a), ln(b), \beta , ln(\sigma ^2))}
 for the Weibull baseline hazard function and
-\deqn{y = (ln(10^3a), ln(10b), \beta , ln(\sigma ^2))}
+\deqn{y = (ln(10^4a), ln(10b), \beta , ln(\sigma ^2))}
 for the Gompertz baseline hazard function, where a and b are the slope and the shape parameters,
 \eqn{\beta } are the Cox-regression parameters, and \eqn{\sigma ^2} is the variance of frailty.}
 
@@ -32,7 +32,8 @@ Two fields - the bias correction \eqn{Bias} and its history \eqn{Biasdiag} for M
 for the exponential baseline hazard function,
 \deqn{y1 = (ln(a), \beta , ln(\sigma ^2), b)}
 for the Weibull baseline hazard function and
-\deqn{y1 = (ln(10^3a), \beta , ln(\sigma ^2), 10b)}
+\deqn{y1 = (ln(10^3a/b), \beta , ln(\sigma ^2), 10b)}
+for the Gompertz baseline hazard function.
 If the calculation of the bias correction is not possible returns NAs.
 }
 \description{
@@ -44,7 +45,7 @@ in accordance with the Cox-Snell method.  The baseline cumulative hazard functio
 \enumerate{
 \item Exponential with baseline cumulative hazard function \deqn{H_{0}(t;a)=at;}
 \item Weibull with baseline cumulative hazard function \deqn{H_{0}(t;a,b)=at^b;}
-\item Gompertz with baseline cumulative hazard function \deqn{H_{0}(t;a,b)=a(exp(bt)-1)).}
+\item Gompertz with baseline cumulative hazard function \deqn{H_{0}(t;a,b)=(a/b)(exp(bt)-1)).}
 }
 }
 \examples{
