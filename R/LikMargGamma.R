@@ -7,7 +7,7 @@
 #' for the exponential baseline hazard function,
 #' \deqn{y = (ln(a), ln(b), \beta , ln(\sigma ^2))}
 #' for the Weibull baseline hazard function and
-#' \deqn{y = (ln(10^3a), ln(10b), \beta , ln(\sigma ^2))}
+#' \deqn{y = (ln(10^4a), ln(10b), \beta , ln(\sigma ^2))}
 #' for the Gompertz baseline hazard function, where a and b are the slope and the shape parameters,
 #' \eqn{\beta } are the Cox-regression parameters, and \eqn{\sigma ^2} is the variance of frailty.
 #' @param D  A data.frame in which to interpret the variables named in the formula.
@@ -25,7 +25,7 @@
 #' \enumerate{
 #' \item Exponential with baseline cumulative hazard function \deqn{H_{0}(t;a)=at;}
 #' \item Weibull with baseline cumulative hazard function \deqn{H_{0}(t;a,b)=at^b;}
-#' \item Gompertz with baseline cumulative hazard function \deqn{H_{0}(t;a,b)=a(exp(bt)-1)).}
+#' \item Gompertz with baseline cumulative hazard function \deqn{H_{0}(t;a,b)=(a/b)(exp(bt)-1)).}
 #'
 #' @return Neg-loglikelihood
 #'
