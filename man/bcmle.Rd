@@ -34,9 +34,9 @@ The list object which components are:
 \enumerate{
 \item baseline hazard function ('Exponential', 'Weibull' or 'Gompertz') - 'dist';
 \item frailty distribution ('gamma' or 'inverse gaussian') - 'frailty';
-\item ML parameter estimates 'parEst';
+\item ML parameter estimates 'parEst'(for Gompertz hazard function (a/b) instead a);
 \item standard errors for ML parameter estimates - 'stErr';
-\item bias corrected parameter estimates  - 'parCor';
+\item bias corrected parameter estimates  - 'parCor'(for Gompertz hazard function (a/b) instead a);
 \item latex table for ML estimates, standard errors and bias corrected ML estimates - 'xTab';
 \item times to failure in increasing order - 't';
 \item empirical survivals - 'sEmp';
